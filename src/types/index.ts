@@ -13,7 +13,7 @@ export interface Task {
   completed: boolean;
 }
 
-// AuthState type : manages current authentication status
+// AuthState type - manages current authentication status
 export interface AuthState {
   isLoggedIn: boolean; // Quick check for login status
   currentUser: User | null; // Logged-in user info, null if not authenticated
