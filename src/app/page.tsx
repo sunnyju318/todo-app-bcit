@@ -68,7 +68,7 @@ export default function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
             required
             aria-required="true"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-[#f5bc40]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f5bc40] text-[#18181b]"
           />
 
           {/* Password input */}
@@ -83,13 +83,13 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-required="true"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-[#f5bc40]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f5bc40] text-[#18181b]"
           />
 
           {/* Login button */}
           <button
             type="submit"
-            className="w-full px-4 py-3 bg-[#f5bc40] text-white font-semibold rounded-lg hover:bg-[#e5ac30] focus:outline-none transition-colors cursor-pointer"
+            className="w-full px-4 py-3 bg-[#f5bc40] text-[#18181b] font-semibold rounded-lg hover:bg-[#e5ac30] focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus:outline-none transition-colors cursor-pointer"
           >
             Login
           </button>
@@ -100,11 +100,12 @@ export default function LoginPage() {
           )}
         </form>
 
-        {/* Signup button */}
-        <Link href="/signup">
-          <button className="w-full px-4 py-3 bg-white text-gray-600 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer">
-            Sign Up
-          </button>
+        {/* Signup link */}
+        <Link
+          href="/signup"
+          className="w-full px-4 py-3 bg-white text-gray-600 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors cursor-pointer text-center block"
+        >
+          Sign Up
         </Link>
       </div>
     </main>

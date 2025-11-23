@@ -117,7 +117,7 @@ export default function DashboardPage() {
           <span className="text-gray-600">{username}</span>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-gray-800 transition-colors font-medium cursor-pointer"
+            className="px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors font-medium cursor-pointer"
           >
             Logout
           </button>
@@ -147,16 +147,20 @@ export default function DashboardPage() {
         {/* <--- Add Task Form ---> */}
         <section className="mb-8">
           <form onSubmit={handleAddTask} className="flex gap-3">
+            <label htmlFor="new-task-input" className="sr-only">
+              Add new task
+            </label>
             <input
+              id="new-task-input"
               type="text"
               placeholder="What do you need to do? :)"
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-[#f5bc40] transition-colors text-lg"
+              className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#f5bc40] transition-colors text-lg"
             />
             <button
               type="submit"
-              className="px-8 py-4 bg-[#18181b] text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors text-lg cursor-pointer"
+              className="px-8 py-4 bg-[#18181b] text-white font-semibold rounded-xl hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors text-lg cursor-pointer"
             >
               Add
             </button>
@@ -180,7 +184,11 @@ export default function DashboardPage() {
                     key={task.id}
                     className="flex items-center gap-4 p-4 border-b border-gray-100 last:border-b-0"
                   >
+                    <label htmlFor={`task-${task.id}`} className="sr-only">
+                      {task.title}
+                    </label>
                     <input
+                      id={`task-${task.id}`}
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => handleToggleTask(task.id)}
@@ -191,21 +199,29 @@ export default function DashboardPage() {
                     {editingTaskId === task.id ? (
                       // Edit mode
                       <>
+                        <label htmlFor={`edit-${task.id}`} className="sr-only">
+                          Edit task title
+                        </label>
                         <input
+                          id={`edit-${task.id}`}
                           type="text"
                           value={editedTitle}
                           onChange={(e) => setEditedTitle(e.target.value)}
-                          className="flex-1 px-3 py-2 border-2 border-[#f5bc40] rounded-lg focus:outline-none text-[#18181b] "
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSave(task.id); // Save on Enter
+                            if (e.key === "Escape") handleCancel(); // Cancel on Escape
+                          }}
+                          className="flex-1 px-3 py-2 border border-[#f5bc40] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f5bc40] text-[#18181b]"
                         />
                         <button
                           onClick={() => handleSave(task.id)}
-                          className="px-4 py-2 bg-[#f5bc40] text-[#18181b] font-medium rounded-lg hover:bg-[#e5ac30]  transition-colors cursor-pointer"
+                          className="px-4 py-2 bg-[#f5bc40] text-[#18181b] font-medium rounded-lg hover:bg-[#e5ac30] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors cursor-pointer"
                         >
                           Save
                         </button>
                         <button
                           onClick={handleCancel}
-                          className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors cursor-pointer"
+                          className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -224,13 +240,14 @@ export default function DashboardPage() {
                         </span>
                         <button
                           onClick={() => handleEdit(task.id, task.title)}
-                          className="px-4 py-2 bg-[#18181b] text-white font-medium rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+                          className="px-4 py-2 bg-[#18181b] text-white font-medium rounded-lg hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors cursor-pointer"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(task.id)}
-                          className="p-2 text-red-500 hover:bg-gray-100 rounded-lg transition-colors text-3xl cursor-pointer"
+                          aria-label="Delete task"
+                          className="p-2 text-red-500 hover:bg-gray-100 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors text-3xl cursor-pointer"
                         >
                           <HiTrash />
                         </button>
