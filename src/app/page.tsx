@@ -18,7 +18,7 @@ export default function LoginPage() {
     const result = login(username, password);
 
     if (result.success) {
-      router.push("/todo");
+      router.push("/dashboard");
     } else {
       setMessage(result.message);
     }

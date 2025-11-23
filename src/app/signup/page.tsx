@@ -16,7 +16,7 @@ export default function SignupPage() {
     const result = signup(username, password);
 
     if (result.success) {
-      router.push("/todo");
+      router.push("/dashboard");
     } else {
       setMessage(result.message);
     }
@@ -24,7 +24,7 @@ export default function SignupPage() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6">
-      <h1 className="text-2xl font-bold">Sign Up</h1>
+      <h1 className="text-2xl font-bold text-gray-800">Sign Up</h1>
 
       <div className="flex flex-col gap-4 w-full max-w-xs">
         {/* Username input */}
