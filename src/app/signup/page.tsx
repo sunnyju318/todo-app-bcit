@@ -10,14 +10,22 @@ export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isChecking, setIsChecking] = useState(true); // Add loading state
 
   // <--- Redirect if already logged in --->
   useEffect(() => {
     const user = getCurrentUser();
     if (user) {
       router.push("/dashboard");
+    } else {
+      setIsChecking(false);
     }
   }, []);
+
+  // <--- Show nothing while checking auth --->
+  if (isChecking) {
+    return null;
+  }
 
   // <--- Handle signup --->
   const handleSignup = () => {

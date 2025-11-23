@@ -11,14 +11,22 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isChecking, setIsChecking] = useState(true); // Add loading state
 
   // <--- Redirect if already logged in --->
   useEffect(() => {
     const user = getCurrentUser();
     if (user) {
       router.push("/dashboard");
+    } else {
+      setIsChecking(false); // Done checking, show form
     }
   }, []);
+
+  // <--- Show nothing while checking auth --->
+  if (isChecking) {
+    return null;
+  }
 
   // <--- Handle login --->
   const handleLogin = (e: React.FormEvent) => {
