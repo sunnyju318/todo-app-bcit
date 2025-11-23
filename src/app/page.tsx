@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { login } from "@/lib/auth";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -14,7 +16,12 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent page reload on form submit
     const result = login(username, password);
-    setMessage(result.message);
+
+    if (result.success) {
+      router.push("/todo");
+    } else {
+      setMessage(result.message);
+    }
   };
 
   return (
@@ -70,7 +77,11 @@ export default function LoginPage() {
           >
             Login
           </button>
-          {message && <p aria-live="polite">{message}</p>}
+          {message && (
+            <p aria-live="polite" className="text-red-600">
+              {message}
+            </p>
+          )}
         </form>
 
         {/* Signup button */}

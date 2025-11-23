@@ -65,7 +65,7 @@ export function signup(
     currentUser: newUser,
   };
 
-  return { success: true, message: `Welcome, ${username}!` };
+  return { success: true, message: "" };
 }
 
 // <--- Login  --->
@@ -89,7 +89,7 @@ export function login(
     currentUser: user,
   };
 
-  return { success: true, message: `Welcome back, ${username}!` };
+  return { success: true, message: "" };
 }
 
 // <--- Logout  --->
