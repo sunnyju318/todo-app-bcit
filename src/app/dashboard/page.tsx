@@ -32,6 +32,7 @@ export default function DashboardPage() {
       const userTasks = getUserTasks(user.id);
       setTasks(userTasks);
     } else {
+      // Redirect to login if not authenticated
       router.push("/");
     }
   }, []);

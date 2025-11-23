@@ -14,6 +14,41 @@ function generateId(): string {
   return crypto.randomUUID();
 }
 
+// ===== localStorage Key ===== //
+
+const AUTH_STORAGE_KEY = "study-buddy-auth";
+
+// ===== localStorage Helper Functions ===== //
+
+// <--- Save auth state to localStorage --->
+function saveAuthToStorage(): void {
+  if (typeof window !== "undefined") {
+    // Check if running in browser
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(currentAuthState));
+  }
+}
+
+// <--- Load auth state from localStorage --->
+function loadAuthFromStorage(): void {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (stored) {
+      currentAuthState = JSON.parse(stored);
+    }
+  }
+}
+
+// <--- Clear auth state from localStorage --->
+function clearAuthFromStorage(): void {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+  }
+}
+
+// ===== Initialize: Load auth state from localStorage on startup ===== //
+
+loadAuthFromStorage();
+
 // ===== Authentication Functions ===== //
 
 // <--- Sign up --->
@@ -65,6 +100,8 @@ export function signup(
     currentUser: newUser,
   };
 
+  saveAuthToStorage(); // Save to localStorage
+
   return { success: true, message: "" };
 }
 
@@ -89,6 +126,8 @@ export function login(
     currentUser: user,
   };
 
+  saveAuthToStorage(); // Save to localStorage
+
   return { success: true, message: "" };
 }
 
@@ -98,6 +137,7 @@ export function logout(): void {
     isLoggedIn: false,
     currentUser: null,
   };
+  clearAuthFromStorage(); // Clear from localStorage
 }
 
 // <--- Get current user  --->

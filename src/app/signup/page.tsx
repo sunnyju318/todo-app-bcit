@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signup } from "@/lib/auth";
+import { signup, getCurrentUser } from "@/lib/auth";
 
 export default function SignupPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  // <--- Redirect if already logged in --->
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   // <--- Handle signup --->
   const handleSignup = () => {

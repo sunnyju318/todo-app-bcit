@@ -1,16 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/auth";
+import { login, getCurrentUser } from "@/lib/auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  // <--- Redirect if already logged in --->
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   // <--- Handle login --->
   const handleLogin = (e: React.FormEvent) => {
