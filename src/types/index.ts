@@ -1,11 +1,13 @@
-// User type
+// ===== Type Definitions ===== //
+
+// <--- User type --->
 export interface User {
   id: string;
   username: string;
   password: string;
 }
 
-// Task type
+// <--- Task type --->
 export interface Task {
   id: string;
   userId: string; // Links task to specific user for multi-user support
@@ -13,7 +15,8 @@ export interface Task {
   completed: boolean;
 }
 
-// AuthState type - manages current authentication status
+// <--- AuthState type --->
+// Manages current authentication status
 export interface AuthState {
   isLoggedIn: boolean; // Quick check for login status
   currentUser: User | null; // Logged-in user info, null if not authenticated
